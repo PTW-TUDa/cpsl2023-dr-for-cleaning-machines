@@ -1,0 +1,56 @@
+{
+    "setup": {
+        "environment_import": "environment.DRServiceKEA",
+        "interaction_env_import": "environment.ConnectionKEA",
+        "agent_import": "eta_utility.eta_x.agents.MPCBasic"
+    },
+    "paths": {
+        "relpath_results": "results",
+        "relpath_scenarios": "scenarios"
+    },
+    "settings": {
+        "sampling_time": 10, // time in seconds
+        "episode_duration": 1800, // time in seconds
+        "n_episodes_play": 1,
+        "n_environments": 1,
+        "verbose": 2,
+        "seed": 123,
+        "interact_with_env": true
+    },
+    "environment_specific": {
+        "scenario_time_begin": "2021-12-01 06:00",
+        "scenario_time_end": "2021-12-01 07:00",
+        "sim_steps_per_sample": 1,
+        "scenario_files":
+            [{
+                "path": "electricity_price_2111201_scaledTo5Min.csv",
+                "interpolation_method": "fillna",
+                "resample_method": "asfreq",
+                "time_conversion_str": "%d.%m.%Y %H:%M"
+            }],
+        "prediction_scope": 1800, // time in seconds, optimization horizon K, is constant
+        "nonindex_update_append_string": "_start",
+        "maximum_number_of_workpieces": 42, // Maximum number of workpieces to be cleaned in the machine.
+        "model_parameters": {
+            "N": 5, // N = 5, 9, 13, ...  Increases 4 for every planed cleaning process. Should be set by plant process control in the future.
+            "n_start": 1, // current active process step, is read from OPC UA server of KEA
+            "S": 1800,  // maximal process time for complete cleaning process in seconds, S, should be set by plant process control in the future.
+            "t_start" : 60, // temperature in °C, is read from OPC UA server of KEA
+            "beta_environment" : 0.0000167, // regression parameter for heat loss to environment
+            "beta_cleaning" : 0.0000172 , // regression parameter for heat loss to environment during cleaning
+            "beta_cleaning_part": 0.0000103, // regression parameter for heat loss to parts during cleaning
+            "t_environment" : 23.5, // Surrounding air temperature
+            "durationLoading" : 120 // duration for loading of the machine
+        },
+        "model_log_variables": ["s", "d", "p", "t", "h", "i", "c"],
+        "model_log_file": true
+    },
+    "interaction_env_specific": {
+        "scenario_time_begin": "2021-12-01 06:00",
+        "scenario_time_end": "2021-12-01 07:00"
+    },
+    "agent_specific": {
+        "action_index": 1,
+        "timelimit": 8
+    }
+}

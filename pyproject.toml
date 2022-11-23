@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "DR_on_KEA_live"
+version= "0.1"
+authors = [
+    {"name" = "Technical University of Darmstadt, Institute for Production Management, Technology and Machine Tools (PTW).", "email" = "info@ptw.tu-darmstadt.de"}
+]
+description = "Modelling and control of aqueous parts cleaning machines for demand response"
+keywords = [
+    "carbon neutral production",
+    "energy-flexibility",
+    "cyber-physical production system",
+    "model predictive control",
+    "single machine scheduling",
+    "data model",
+    "inherent energy storage"
+]
+license = {file = "LICENSE"}
+classifiers = [
+    "License :: OSI Approved :: BSD License",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Manufacturing",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+]
+dynamic = ["dependencies"]
+
+[tool.setuptools]
+package-dir = {"" = "DR_on_KEA_live"}
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}

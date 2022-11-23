@@ -1,0 +1,214 @@
+{
+    "system": [
+        {
+            "name": "CM",
+            "servers": {
+                "KEA": {"url": "192.168.0.0:4840", "protocol": "opcua", "usr": "", "pwd": ""},
+                "GA": {"url": "192.168.0.1:4840", "protocol": "opcua", "usr": "", "pwd": ""}
+            },
+            "nodes": [
+                {
+                    "name": "nKEAOperatingState",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.localState.nKEAOperatingState",
+                    "dtype": "int"
+                },
+                {
+                    "name": "nInterruptedStep",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.interruptProcessState.nInterruptedState",
+                    "dtype": "int"
+                },
+                {
+                    "name": "fTankHeaterNominalLoad",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.tank.storeEnergyInherentlyState.fNominalLoad",
+                    "dtype": "float"
+                },
+                {
+                    "name": "fPowerConsumptionOperational",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.interruptProcessState.stepPowerConsumption.fPowerConsumptionOperational",
+                    "dtype": "float"
+                },
+                {
+                    "name": "fPowerConsumptionCleaning",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.interruptProcessState.stepPowerConsumption.fPowerConsumptionCleaning",
+                    "dtype": "float"
+                },
+                {
+                    "name": "fPowerConsumptionDrying",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.interruptProcessState.stepPowerConsumption.fPowerConsumptionDrying",
+                    "dtype": "float"
+                },
+                {
+                    "name": "fInterruptionCountdown",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.interruptProcessState.fInterruptionCountdown",
+                    "dtype": "float"
+                },
+                {
+                    "name": "fDurationSprayCleaning",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.interruptProcessState.stepDuration.fDurationSprayCleaning",
+                    "dtype": "float"
+                },
+                {
+                    "name": "fDurationDripping",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.interruptProcessState.stepDuration.fDurationDripping",
+                    "dtype": "float"
+                },
+                {
+                    "name": "fDurationSuction",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.interruptProcessState.stepDuration.fDurationSuction",
+                    "dtype": "float"
+                },
+                {
+                    "name": "fDurationBlowing",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.interruptProcessState.stepDuration.fDurationBlowing",
+                    "dtype": "float"
+                },
+                {
+                    "name": "fDurationConvectionDrying",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.interruptProcessState.stepDuration.fDurationConvectionDrying",
+                    "dtype": "float"
+                },
+                {
+                    "name": "fTankTemperature",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.tank.localState.fTankTemperature",
+                    "dtype": "float"
+                },
+                {
+                    "name": "fTemperatureLimitLowerWorking",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.tank.localState.fTemperatureLimitLowerWorking",
+                    "dtype": "float"
+                },
+                {
+                    "name": "fTemperatureLimitUpperWorking",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.tank.localState.fTemperatureLimitUpperWorking",
+                    "dtype": "float"
+                },
+                {
+                    "name": "fCleaningFluidSpecificHeatCapacity",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.tank.localState.fCleaningFluidSpecificHeatCapacity",
+                    "dtype": "float"
+                },
+                {
+                    "name": "fTankVolume",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.tank.localState.fTankVolume",
+                    "dtype": "float"
+                },
+                {
+                    "name": "fCleaningFluidDensity",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.tank.localState.fCleaningFluidDensity",
+                    "dtype": "float"
+                },
+                {
+                    "name": "fMassWorkpiece",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.programState.fMassWorkpiece",
+                    "dtype": "float"
+                },
+                {
+                    "name": "nWorkpieces",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.localState.nWorkpieces",
+                    "dtype": "int"
+                },
+                {
+                    "name": "nSetNumberOfWorkpieces",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.localSetParameters.nWorkpieces",
+                    "dtype": "int"
+                },
+                {
+                    "name": "bInterruptProcess",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.bInterruptProcess",
+                    "dtype": "bool"
+                },
+                {
+                    "name": "bTankHeaterSetStatusOnAlgorithm",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.tank.tankHeater.control.bSetStatusOnAlgorithm",
+                    "dtype": "bool"
+                },
+                {
+                    "name": "bTankHeaterAlgorithmModeActivated",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.tank.tankHeater.control.bAlgorithmModeActivated",
+                    "dtype": "bool"
+                },
+                {
+                    "name": "bSetSelectedProgram",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.localSetParameters.bSetSelectedProgram",
+                    "dtype": "bool"
+                },
+                {
+                    "name": "nSelectProgram",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.localSetParameters.nSelectProgram",
+                    "dtype": "int"
+                },
+                {
+                    "name": "fHallTemperature",
+                    "server": "GA",
+                    "opc_id": "ns=4;s=MAIN.Ambient.localState.fHallTemperature",
+                    "dtype": "float"
+                }
+            ],
+            "observe": [
+                "nKEAOperatingState",
+                "nInterruptedStep",
+                "fTankHeaterNominalLoad",
+                "fPowerConsumptionOperational",
+                "fPowerConsumptionCleaning",
+                "fPowerConsumptionDrying",
+                "fInterruptionCountdown",
+                "fDurationSprayCleaning",
+                "fDurationDripping",
+                "fDurationSuction",
+                "fDurationBlowing",
+                "fDurationConvectionDrying",
+                "fTankTemperature",
+                "fTemperatureLimitLowerWorking",
+                "fTemperatureLimitUpperWorking",
+                "fCleaningFluidSpecificHeatCapacity",
+                "fTankVolume",
+                "fCleaningFluidDensity",
+                "fMassWorkpiece",
+                "nWorkpieces",
+                "bInterruptProcess",
+                "bTankHeaterSetStatusOnAlgorithm",
+                "bTankHeaterAlgorithmModeActivated",
+                "fHallTemperature"
+            ],
+            "actions": {
+                "init": {
+                    "bTankHeaterAlgorithmModeActivated": true,
+                    "bSetSelectedProgram": true,
+                    "nSelectProgram": 1, // set Arepron program  5: Testprogramm
+                    "nSetNumberOfWorkpieces": 42 // set to 42 workpieces
+                },
+                "close": {
+                    "bTankHeaterAlgorithmModeActivated": false,
+                    "bInterruptProcess": false,
+                    "bSetSelectedProgram": false
+                }
+            }
+        }
+    ]
+}
