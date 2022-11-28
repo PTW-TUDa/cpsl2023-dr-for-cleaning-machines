@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="" productName="IndraLogic" productVersion="indralogic" creationDateTime="2022-11-22T16:07:57.4820532" />
-  <contentHeader name="IndraLogic.project" modificationDateTime="2022-11-22T15:55:06.1657894">
+  <fileHeader companyName="" productName="IndraLogic" productVersion="indralogic" creationDateTime="2022-11-28T17:02:21.498275" />
+  <contentHeader name="IndraLogic.project" modificationDateTime="2022-11-28T17:01:58.1575247">
     <coordinateInfo>
       <fbd>
         <scaling x="1" y="1" />
@@ -123,22 +123,22 @@
                 <simpleValue value="27" />
               </initialValue>
             </variable>
-            <variable name="CurrentTotal">
+            <variable name="StromGes">
               <type>
                 <REAL />
               </type>
             </variable>
-            <variable name="RealPowerTotal">
+            <variable name="WirkleistungGes">
               <type>
                 <REAL />
               </type>
             </variable>
-            <variable name="ReactivePowerTotal">
+            <variable name="BlindleistungGes">
               <type>
                 <REAL />
               </type>
             </variable>
-            <variable name="Frequency">
+            <variable name="Frequenz">
               <type>
                 <REAL />
               </type>
@@ -1546,6 +1546,38 @@
           </data>
         </addData>
       </dataType>
+      <dataType name="ST_InterruptProcess">
+        <baseType>
+          <struct>
+            <variable name="bInterruptProcessAlgorithm">
+              <type>
+                <BOOL />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">interrupt process</xhtml>
+              </documentation>
+            </variable>
+            <variable name="bInterruptProcessManual">
+              <type>
+                <BOOL />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">interrupt process</xhtml>
+              </documentation>
+            </variable>
+          </struct>
+        </baseType>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/attributes" handleUnknown="implementation">
+            <Attributes>
+              <Attribute Name="symbol" Value="readwrite" />
+            </Attributes>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>5b4b94ab-8916-412e-a8ee-3bcca6777d0d</ObjectId>
+          </data>
+        </addData>
+      </dataType>
     </dataTypes>
     <pous>
       <pou name="PRG_AnalogInputs" pouType="program">
@@ -1670,7 +1702,7 @@ END_IF
 (*------------------ Input / Output Mapping -------------*)
 PRG_AnalogInputs();
 PRG_AnalogOutputs();
-prPowerMeasurementUMG();
+prLeistungsmessungUMG();
 (*------------------ Cleaning program -------------*)
 KEA(bSetStatusOnAutomatic := TRUE);</xhtml>
           </ST>
@@ -1761,17 +1793,17 @@ END_IF
           </data>
         </addData>
       </pou>
-      <pou name="prPowerMeasurementUMG" pouType="program">
+      <pou name="prLeistungsmessungUMG" pouType="program">
         <interface>
           <outputVars>
-            <variable name="PowerMeasurementUMG">
+            <variable name="LeistungsmessungUMG">
               <type>
                 <derived name="ST_PowerMeasurementUMG96RM" />
               </type>
             </variable>
           </outputVars>
           <localVars>
-            <variable name="modePowerMeasurementUMG">
+            <variable name="modeLeistungsmessungUMG">
               <type>
                 <BYTE />
               </type>
@@ -1799,7 +1831,7 @@ END_IF
                 </array>
               </type>
             </variable>
-            <variable name="processword">
+            <variable name="prozesswort">
               <type>
                 <DWORD />
               </type>
@@ -1824,17 +1856,17 @@ END_IF
         </interface>
         <body>
           <ST>
-            <xhtml xmlns="http://www.w3.org/1999/xhtml">mode := modePowerMeasurementUMG;
-PowerMeasurementUMG.modeReturn := BYTE_TO_INT(wInProcessData[1]);
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">mode := modeLeistungsmessungUMG;
+LeistungsmessungUMG.modeReturn := BYTE_TO_INT(wInProcessData[1]);
 
-IF (i &lt; (PowerMeasurementUMG.count))THEN
-	processword := SHL(BYTE_TO_DWORD(wInProcessData[(0+(4*i))]), 24) OR SHL(BYTE_TO_DWORD(wInProcessData[(3+(4*i))]), 16) OR SHL(BYTE_TO_DWORD(wInProcessData[(2+(4*i))]), 8) OR BYTE_TO_DWORD(wInProcessData[(5+(4*i))]);
-	pointR := ADR(processword);
-	PowerMeasurementUMG.value[i] := pointR^;
-	PowerMeasurementUMG.CurrentTotal := PowerMeasurementUMG.value[10];
-	PowerMeasurementUMG.RealPowerTotal  := PowerMeasurementUMG.value[18];
-	PowerMeasurementUMG.ReactivePowerTotal  := PowerMeasurementUMG.value[19];
-	PowerMeasurementUMG.Frequency  := PowerMeasurementUMG.value[17];
+IF (i &lt; (LeistungsmessungUMG.count))THEN
+	prozesswort := SHL(BYTE_TO_DWORD(wInProcessData[(0+(4*i))]), 24) OR SHL(BYTE_TO_DWORD(wInProcessData[(3+(4*i))]), 16) OR SHL(BYTE_TO_DWORD(wInProcessData[(2+(4*i))]), 8) OR BYTE_TO_DWORD(wInProcessData[(5+(4*i))]);
+	pointR := ADR(prozesswort);
+	LeistungsmessungUMG.value[i] := pointR^;
+	LeistungsmessungUMG.StromGes := LeistungsmessungUMG.value[10];
+	LeistungsmessungUMG.WirkleistungGes  := LeistungsmessungUMG.value[18];
+	LeistungsmessungUMG.BlindleistungGes  := LeistungsmessungUMG.value[19];
+	LeistungsmessungUMG.Frequenz  := LeistungsmessungUMG.value[17];
 	i := i+1;
 ELSE
 	i :=0;
@@ -2154,6 +2186,14 @@ END_IF</xhtml>
               <initialValue>
                 <simpleValue value="FALSE" />
               </initialValue>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> interruption</xhtml>
+              </documentation>
+            </variable>
+            <variable name="interruptProcess">
+              <type>
+                <derived name="ST_InterruptProcess" />
+              </type>
               <addData>
                 <data name="http://www.3s-software.com/plcopenxml/attributes" handleUnknown="implementation">
                   <Attributes>
@@ -2161,9 +2201,6 @@ END_IF</xhtml>
                   </Attributes>
                 </data>
               </addData>
-              <documentation>
-                <xhtml xmlns="http://www.w3.org/1999/xhtml"> interruption</xhtml>
-              </documentation>
             </variable>
             <variable name="interruptProcessState">
               <type>
@@ -2480,10 +2517,10 @@ bEmergencyStopOk 	:= inputs.bEmergencyStopOk;
 bConditionToStartOk	:= inputs.bConditionToStartOk;
 
 // read from umg 96 rm
-fCurrent 		:= prPowerMeasurementUMG.PowerMeasurementUMG.CurrentTotal;
-fRealPower 		:= prPowerMeasurementUMG.PowerMeasurementUMG.RealPowerTotal;
-fReactivePower 	:= prPowerMeasurementUMG.PowerMeasurementUMG.ReactivePowerTotal;
-fFrequency 		:= prPowerMeasurementUMG.PowerMeasurementUMG.Frequency;
+fCurrent 		:= prLeistungsmessungUMG.LeistungsmessungUMG.StromGes;
+fRealPower 		:= prLeistungsmessungUMG.LeistungsmessungUMG.WirkleistungGes;
+fReactivePower 	:= prLeistungsmessungUMG.LeistungsmessungUMG.BlindleistungGes;
+fFrequency 		:= prLeistungsmessungUMG.LeistungsmessungUMG.Frequenz;
 
 // read from opc ua
 bResetErrors		:= localSetParameters.bResetErrors OR bStartButton;
@@ -3343,6 +3380,28 @@ interruptProcessState.stepDuration.sDurationUnit := 's';</xhtml>
 END_CASE
 	
 	</xhtml>
+                </ST>
+              </body>
+              <addData />
+            </Method>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/method" handleUnknown="implementation">
+            <Method name="SelectInterruptionMode" ObjectId="8c4ddd6d-aa3f-4603-8b63-9cfc94ea7291">
+              <interface>
+                <returnType>
+                  <BOOL />
+                </returnType>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">//enable interruption of process is in algorithm or manual mode 
+IF control.bManualModeActivated THEN
+	bInterruptProcess := interruptProcess.bInterruptProcessManual;
+ELSIF control.bAlgorithmModeActivated AND bAlgorithmPermission THEN
+	bInterruptProcess := interruptProcess.bInterruptProcessAlgorithm;
+ELSE
+	bInterruptProcess := FALSE;
+END_IF</xhtml>
                 </ST>
               </body>
               <addData />
@@ -6644,6 +6703,7 @@ systemState.nOperatingState := nState;</xhtml>
               <Object Name="SelectProgram" ObjectId="78687eee-e41e-4680-b483-892693c0e5b2" />
               <Object Name="SetStates" ObjectId="7f5463a6-6517-4b4d-8b8e-248669273ffa" />
               <Object Name="TimeToNextInterruption" ObjectId="542bf08f-35cd-4d0e-beea-fc34967db003" />
+              <Object Name="SelectInterruptionMode" ObjectId="8c4ddd6d-aa3f-4603-8b63-9cfc94ea7291" />
             </Object>
             <Object Name="FB_InletAirHeatingSystem" ObjectId="e26f411d-315a-4ff7-ae6a-6684407a01b9">
               <Object Name="SetOutputs" ObjectId="dccab24f-c021-4397-a9e6-2801fbdcf97b" />
@@ -6666,13 +6726,13 @@ systemState.nOperatingState := nState;</xhtml>
               <Object Name="SetOutputs" ObjectId="2fb7a947-8a2b-4814-b393-ff0621252bdf" />
             </Object>
           </Folder>
-          <Folder Name="05_Communication">
+          <Folder Name="04_Communication">
             <Folder Name="AnalogModuls">
               <Object Name="PRG_AnalogInputs" ObjectId="b4d27cf5-1ebc-4473-b645-be38e3ea7334" />
               <Object Name="PRG_AnalogOutputs" ObjectId="e80cb33d-c3c0-469e-bc3f-20cba888a9de" />
             </Folder>
-            <Folder Name="PowerMeasurement">
-              <Object Name="prPowerMeasurementUMG" ObjectId="c4df5764-e460-47b1-a7bc-4b7e35df084d" />
+            <Folder Name="Leistungsmessung">
+              <Object Name="prLeistungsmessungUMG" ObjectId="c4df5764-e460-47b1-a7bc-4b7e35df084d" />
             </Folder>
           </Folder>
           <Folder Name="00_Base_Classes">
@@ -6752,6 +6812,7 @@ systemState.nOperatingState := nState;</xhtml>
             <Object Name="ST_InterruptProcessState" ObjectId="6f74adb5-4708-4426-88eb-a15030125d05" />
             <Object Name="ST_StepPowerConsumption" ObjectId="5c96aef4-390f-456c-a03b-af3101b08b3b" />
             <Object Name="ST_StepDuration" ObjectId="a18e64c9-336a-4c3b-85b0-3f48b6825697" />
+            <Object Name="ST_InterruptProcess" ObjectId="5b4b94ab-8916-412e-a8ee-3bcca6777d0d" />
           </Folder>
           <Folder Name="0_Base_Data_Structs">
             <Object Name="E_SystemControlState" ObjectId="9817809b-cf85-46c9-ae1f-a83f65c089ae" />

@@ -136,7 +136,7 @@
                 {
                     "name": "bInterruptProcess",
                     "server": "KEA",
-                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.bInterruptProcess",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.interruptProcess.bInterruptProcessAlgorithm",
                     "dtype": "bool"
                 },
                 {
