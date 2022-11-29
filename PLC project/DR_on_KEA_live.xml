@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="" productName="IndraLogic" productVersion="indralogic" creationDateTime="2022-11-28T17:02:21.498275" />
-  <contentHeader name="IndraLogic.project" modificationDateTime="2022-11-28T17:01:58.1575247">
+  <fileHeader companyName="" productName="IndraLogic" productVersion="indralogic" creationDateTime="2022-11-29T10:56:21.6017937" />
+  <contentHeader name="IndraLogic.project" modificationDateTime="2022-11-28T17:01:58">
     <coordinateInfo>
       <fbd>
         <scaling x="1" y="1" />
@@ -463,18 +463,13 @@
       <dataType name="ST_InterruptProcessState">
         <baseType>
           <struct>
-            <variable name="stepPowerConsumption">
+            <variable name="stepEnergyConsumption">
               <type>
-                <derived name="ST_StepPowerConsumption" />
+                <derived name="ST_StepEnergyConsumption" />
               </type>
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml"> static; shows total energy consumption per step for all steps that can be interrupted</xhtml>
               </documentation>
-            </variable>
-            <variable name="stepDuration">
-              <type>
-                <derived name="ST_StepDuration" />
-              </type>
             </variable>
             <variable name="sEnergyUnit">
               <type>
@@ -492,6 +487,14 @@
                 <xhtml xmlns="http://www.w3.org/1999/xhtml"> dynamic; current power consumption of the whole machine</xhtml>
               </documentation>
             </variable>
+            <variable name="stepPowerConsumption">
+              <type>
+                <derived name="ST_StepPowerConsumption" />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> static; shows total power consumption per step for all energy relevant steps</xhtml>
+              </documentation>
+            </variable>
             <variable name="sPowerUnit">
               <type>
                 <string />
@@ -499,6 +502,11 @@
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml"> static; unit of nmachine power consumption</xhtml>
               </documentation>
+            </variable>
+            <variable name="stepDuration">
+              <type>
+                <derived name="ST_StepDuration" />
+              </type>
             </variable>
             <variable name="sMachineState">
               <type>
@@ -1464,25 +1472,15 @@
           </data>
         </addData>
       </dataType>
-      <dataType name="ST_StepPowerConsumption">
+      <dataType name="ST_StepEnergyConsumption">
         <baseType>
           <struct>
-            <variable name="fPowerConsumptionCleaning">
+            <variable name="fEnergyConsumptionSprayCleaning">
               <type>
                 <REAL />
               </type>
             </variable>
-            <variable name="fPowerConsumptionDrying">
-              <type>
-                <REAL />
-              </type>
-            </variable>
-            <variable name="fPowerConsumptionBlowing">
-              <type>
-                <REAL />
-              </type>
-            </variable>
-            <variable name="fPowerConsumptionOperational">
+            <variable name="fEnergyConsumptionConvectionDrying">
               <type>
                 <REAL />
               </type>
@@ -1575,6 +1573,57 @@
           </data>
           <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
             <ObjectId>5b4b94ab-8916-412e-a8ee-3bcca6777d0d</ObjectId>
+          </data>
+        </addData>
+      </dataType>
+      <dataType name="ST_StepPowerConsumption">
+        <baseType>
+          <struct>
+            <variable name="fPowerConsumptionSprayCleaning">
+              <type>
+                <REAL />
+              </type>
+            </variable>
+            <variable name="fPowerConsumptionConvectionDrying">
+              <type>
+                <REAL />
+              </type>
+            </variable>
+            <variable name="fPowerConsumptionBlowing">
+              <type>
+                <REAL />
+              </type>
+            </variable>
+            <variable name="fPowerConsumptionDripping">
+              <type>
+                <REAL />
+              </type>
+            </variable>
+            <variable name="fPowerConsumptionSuction">
+              <type>
+                <REAL />
+              </type>
+            </variable>
+            <variable name="fPowerConsumptionHoming">
+              <type>
+                <REAL />
+              </type>
+            </variable>
+            <variable name="fPowerConsumptionOperational">
+              <type>
+                <REAL />
+              </type>
+            </variable>
+          </struct>
+        </baseType>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/attributes" handleUnknown="implementation">
+            <Attributes>
+              <Attribute Name="symbol" Value="readwrite" />
+            </Attributes>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>d0af6d94-6c58-42e4-ad8b-34a71c1bdda1</ObjectId>
           </data>
         </addData>
       </dataType>
@@ -3325,19 +3374,27 @@ localState.fFrequency 		:= fFrequency;
 // set interrupt process state
 // nInterruptedState is set in SystemFlowControl
 interruptProcessState.fMachinePowerConsumption := fRealPower;
+interruptProcessState.stepPowerConsumption.fPowerConsumptionBlowing := 980;
+interruptProcessState.stepPowerConsumption.fPowerConsumptionSprayCleaning := 3430;
+interruptProcessState.stepPowerConsumption.fPowerConsumptionConvectionDrying := 9350;
+interruptProcessState.stepPowerConsumption.fPowerConsumptionDripping := 200;
+interruptProcessState.stepPowerConsumption.fPowerConsumptionSuction := 550;
+interruptProcessState.stepPowerConsumption.fPowerConsumptionHoming := 250;
+interruptProcessState.stepPowerConsumption.fPowerConsumptionOperational := 200;
 interruptProcessState.sPowerUnit := 'W';
 interruptProcessState.fInterruptionCountdown := TIME_TO_REAL(tTimeToNextInterruption) / 1000;
 interruptProcessState.fInterruptionCountdownUnit := 's';
-interruptProcessState.stepPowerConsumption.fPowerConsumptionBlowing := 980;
-interruptProcessState.stepPowerConsumption.fPowerConsumptionCleaning := 3430;
-interruptProcessState.stepPowerConsumption.fPowerConsumptionDrying := 9350;
-interruptProcessState.stepPowerConsumption.fPowerConsumptionOperational := 200;
 interruptProcessState.stepDuration.fDurationSprayCleaning := TIME_TO_REAL(tDurationSprayCleaning) / 1000;
 interruptProcessState.stepDuration.fDurationDripping := TIME_TO_REAL(tDurationDripping) / 1000;
 interruptProcessState.stepDuration.fDurationSuction := TIME_TO_REAL(tDurationSuction) / 1000;
 interruptProcessState.stepDuration.fDurationBlowing	:= TIME_TO_REAL(tDurationBlowing) / 1000;
 interruptProcessState.stepDuration.fDurationConvectionDrying := TIME_TO_REAL(tDurationConvectionDrying) / 1000;
-interruptProcessState.stepDuration.sDurationUnit := 's';</xhtml>
+interruptProcessState.stepDuration.sDurationUnit := 's';
+interruptProcessState.stepEnergyConsumption.fEnergyConsumptionSprayCleaning := (
+	interruptProcessState.stepPowerConsumption.fPowerConsumptionSprayCleaning * interruptProcessState.stepDuration.fDurationSprayCleaning / 3600);
+interruptProcessState.stepEnergyConsumption.fEnergyConsumptionConvectionDrying := (
+	interruptProcessState.stepPowerConsumption.fPowerConsumptionConvectionDrying * interruptProcessState.stepDuration.fDurationConvectionDrying / 3600);
+interruptProcessState.sEnergyUnit := 'Wh';</xhtml>
                 </ST>
               </body>
               <addData />
@@ -6810,9 +6867,10 @@ systemState.nOperatingState := nState;</xhtml>
           <Folder Name="1_DR_Data_Structs">
             <Object Name="ST_StoreEnergyInherentlyState" ObjectId="fccdfa4d-f8c9-45ad-b6f3-9b950a4db300" />
             <Object Name="ST_InterruptProcessState" ObjectId="6f74adb5-4708-4426-88eb-a15030125d05" />
-            <Object Name="ST_StepPowerConsumption" ObjectId="5c96aef4-390f-456c-a03b-af3101b08b3b" />
+            <Object Name="ST_StepEnergyConsumption" ObjectId="5c96aef4-390f-456c-a03b-af3101b08b3b" />
             <Object Name="ST_StepDuration" ObjectId="a18e64c9-336a-4c3b-85b0-3f48b6825697" />
             <Object Name="ST_InterruptProcess" ObjectId="5b4b94ab-8916-412e-a8ee-3bcca6777d0d" />
+            <Object Name="ST_StepPowerConsumption" ObjectId="d0af6d94-6c58-42e4-ad8b-34a71c1bdda1" />
           </Folder>
           <Folder Name="0_Base_Data_Structs">
             <Object Name="E_SystemControlState" ObjectId="9817809b-cf85-46c9-ae1f-a83f65c089ae" />

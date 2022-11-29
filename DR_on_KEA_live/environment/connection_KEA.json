@@ -3,8 +3,8 @@
         {
             "name": "CM",
             "servers": {
-                "KEA": {"url": "192.168.0.0:4840", "protocol": "opcua", "usr": "", "pwd": ""},
-                "GA": {"url": "192.168.0.1:4840", "protocol": "opcua", "usr": "", "pwd": ""}
+                "KEA": {"url": "192.168.116.43:4840", "protocol": "opcua", "usr": "", "pwd": ""},
+                "GA": {"url": "192.168.116.86:4840", "protocol": "opcua", "usr": "", "pwd": ""}
             },
             "nodes": [
                 {
@@ -34,13 +34,13 @@
                 {
                     "name": "fPowerConsumptionCleaning",
                     "server": "KEA",
-                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.interruptProcessState.stepPowerConsumption.fPowerConsumptionCleaning",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.interruptProcessState.stepPowerConsumption.fPowerConsumptionSprayCleaning",
                     "dtype": "float"
                 },
                 {
                     "name": "fPowerConsumptionDrying",
                     "server": "KEA",
-                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.interruptProcessState.stepPowerConsumption.fPowerConsumptionDrying",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.interruptProcessState.stepPowerConsumption.fPowerConsumptionConvectionDrying",
                     "dtype": "float"
                 },
                 {
