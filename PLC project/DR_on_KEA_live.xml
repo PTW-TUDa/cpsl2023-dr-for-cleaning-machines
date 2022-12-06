@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="" productName="IndraLogic" productVersion="indralogic" creationDateTime="2022-12-06T10:10:06.7971978" />
-  <contentHeader name="IndraLogic.project" modificationDateTime="2022-12-06T10:04:48">
+  <fileHeader companyName="" productName="IndraLogic" productVersion="indralogic" creationDateTime="2022-12-06T14:30:48.2605206" />
+  <contentHeader name="IndraLogic.project" modificationDateTime="2022-12-06T14:21:14">
     <coordinateInfo>
       <fbd>
         <scaling x="1" y="1" />
@@ -199,41 +199,41 @@
                 <xhtml xmlns="http://www.w3.org/1999/xhtml"> maximal temperature to start process</xhtml>
               </documentation>
             </variable>
-            <variable name="tDurationSprayCleaningManual">
+            <variable name="nDurationSprayCleaningManual">
               <type>
-                <TIME />
+                <INT />
               </type>
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml">Bereich: 0...300 Sekunden - Zeit für Schrittkette</xhtml>
               </documentation>
             </variable>
-            <variable name="tDurationDrippingManual">
+            <variable name="nDurationDrippingManual">
               <type>
-                <TIME />
+                <INT />
               </type>
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml">Bereich: 0...300 Sekunden - Zeit für Schrittkette</xhtml>
               </documentation>
             </variable>
-            <variable name="tDurationSuctionManual">
+            <variable name="nDurationSuctionManual">
               <type>
-                <TIME />
+                <INT />
               </type>
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml">Bereich: 0...300 Sekunden - Zeit für Schrittkette</xhtml>
               </documentation>
             </variable>
-            <variable name="tDurationBlowingManual">
+            <variable name="nDurationBlowingManual">
               <type>
-                <TIME />
+                <INT />
               </type>
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml">Bereich: 0...300 Sekunden - Zeit für Schrittkette</xhtml>
               </documentation>
             </variable>
-            <variable name="tDurationConvectionDryingManual">
+            <variable name="nDurationConvectionDryingManual">
               <type>
-                <TIME />
+                <INT />
               </type>
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml">Bereich: 0...300 Sekunden - Zeit für Schrittkette	</xhtml>
@@ -1270,44 +1270,52 @@
                 <xhtml xmlns="http://www.w3.org/1999/xhtml">Bereich: 50...110°C</xhtml>
               </documentation>
             </variable>
-            <variable name="tDurationSprayCleaning">
+            <variable name="nDurationSprayCleaning">
               <type>
-                <TIME />
+                <INT />
               </type>
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml">Bereich: 0...300 Sekunden - Zeit für Schrittkette</xhtml>
               </documentation>
             </variable>
-            <variable name="tDurationDripping">
+            <variable name="nDurationDripping">
               <type>
-                <TIME />
+                <INT />
               </type>
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml">Bereich: 0...300 Sekunden - Zeit für Schrittkette</xhtml>
               </documentation>
             </variable>
-            <variable name="tDurationSuction">
+            <variable name="nDurationSuction">
               <type>
-                <TIME />
+                <INT />
               </type>
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml">Bereich: 0...300 Sekunden - Zeit für Schrittkette</xhtml>
               </documentation>
             </variable>
-            <variable name="tDurationBlowing">
+            <variable name="nDurationBlowing">
               <type>
-                <TIME />
+                <INT />
               </type>
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml">Bereich: 0...300 Sekunden - Zeit für Schrittkette</xhtml>
               </documentation>
             </variable>
-            <variable name="tDurationConvectionDrying">
+            <variable name="nDurationConvectionDrying">
               <type>
-                <TIME />
+                <INT />
               </type>
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml">Bereich: 0...300 Sekunden - Zeit für Schrittkette	</xhtml>
+              </documentation>
+            </variable>
+            <variable name="sDurationUnit">
+              <type>
+                <string />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> duration unit = seconds</xhtml>
               </documentation>
             </variable>
             <variable name="bProgramWithBasketRotation">
@@ -3241,100 +3249,113 @@ bSwitchToWorking := (
               <body>
                 <ST>
                   <xhtml xmlns="http://www.w3.org/1999/xhtml">(*Definition der Programmschrittlänge und prozessparameter*)
-IF (control.bManualModeActivated) THEN
-	sActiveProgram := 'manual';	
-	fTankTemperatureSetPoint		:= setKEAProgramManual.fTankTemperatureSetPointManual; 			//Bereich: 30...75°C
-	fAirHeatingTemperatureSetPoint	:= setKEAProgramManual.fAirHeatingTemperatureSetPointManual; 	//Bereich: 50...110°C
-	tDurationSprayCleaning			:= setKEAProgramManual.tDurationSprayCleaningManual;			//Bereich: 0...300 Sekunden - Zeit für Schrittkette
-	tDurationDripping				:= setKEAProgramManual.tDurationDrippingManual;					//Bereich: 0...300 Sekunden - Zeit für Schrittkette
-	tDurationSuction				:= setKEAProgramManual.tDurationSuctionManual;					//Bereich: 0...300 Sekunden - Zeit für Schrittkette
-	tDurationBlowing				:= setKEAProgramManual.tDurationBlowingManual;					//Bereich: 0...300 Sekunden - Zeit für Schrittkette
-	tDurationConvectionDrying		:= setKEAProgramManual.tDurationConvectionDryingManual;			//Bereich: 0...300 Sekunden - Zeit für Schrittkette	
-	fTankHeaterHysteresisWidth		:= setKEAProgramManual.fTankHeaterHysteresisWidthManual;		// Definiert Range der Tankheizung
-	fTemperatureLimitLowerWorking 	:= setKEAProgramManual.fTemperatureLimitLowerWorking;
-	fTemperatureLimitUpperWorking 	:= setKEAProgramManual.fTemperatureLimitUpperWorking;
-	bProgramWithBasketRotation		:= setKEAProgramManual.bProgramWithBasketRotation;		// Keine Korbrotation
-	sTypeWorkpiece					:= setKEAProgramManual.sTypeWorkpiece;
-	fMassWorkpiece					:= setKEAProgramManual.fMassWorkpiece;		// mass in kg	
-ELSE
-	CASE nSelectProgram OF
-		1:
-			sActiveProgram := 'ArePron';
-			fTankTemperatureSetPoint		:= 60; 			//Bereich: 30...75°C
-			fAirHeatingTemperatureSetPoint	:= 110; 		//Bereich: 50...110°C
-			tDurationSprayCleaning			:= T#600S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
-			tDurationDripping				:= T#10S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
-			tDurationSuction				:= T#10S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
-			tDurationBlowing				:= T#10S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
-			tDurationConvectionDrying		:= T#90S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette	
-			fTankHeaterHysteresisWidth		:= 2;			// Definiert Range der Tankheizung
-			fTemperatureLimitLowerWorking 	:= 55;
-			fTemperatureLimitUpperWorking 	:= 65;
-			bProgramWithBasketRotation		:= FALSE;		// Keine Korbrotation
-			sTypeWorkpiece					:= 'Control plate';
-			fMassWorkpiece					:= 0.262;		// mass in kg
-		2:
-			sActiveProgram := 'Schaumparty';
-			fTankTemperatureSetPoint		:= 55; 			//Bereich: 30...75°C
-			fAirHeatingTemperatureSetPoint	:= 110; 		//Bereich: 50...110°C
-			tDurationSprayCleaning			:= T#240S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
-			tDurationDripping				:= T#10S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
-			tDurationSuction				:= T#10S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
-			tDurationBlowing				:= T#10S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
-			tDurationConvectionDrying		:= T#60S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette	
-			fTankHeaterHysteresisWidth		:= 4;			// Definiert Range der Tankheizung	
-			fTemperatureLimitLowerWorking 	:= 50;
-			fTemperatureLimitUpperWorking 	:= 65;
-			bProgramWithBasketRotation		:= FALSE;		// Keine Korbrotation
-			sTypeWorkpiece					:= 'Control plate';
-			fMassWorkpiece					:= 0.262;		// mass in kg
-		3:
-			sActiveProgram := 'Phi-Abschlussdemo';	
-			fTankTemperatureSetPoint		:= 60; 			//Bereich: 30...75°C
-			fAirHeatingTemperatureSetPoint	:= 110; 		//Bereich: 50...110°C
-			tDurationSprayCleaning			:= T#30S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
-			tDurationDripping				:= T#10S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
-			tDurationSuction				:= T#10S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
-			tDurationBlowing				:= T#11S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
-			tDurationConvectionDrying		:= T#41S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette	
-			fTankHeaterHysteresisWidth		:= 5;			// Definiert Range der Tankheizung
-			fTemperatureLimitLowerWorking 	:= 55;
-			fTemperatureLimitUpperWorking 	:= 65;
-			bProgramWithBasketRotation		:= FALSE;		// Keine Korbrotation	
-			sTypeWorkpiece					:= 'none';
-			fMassWorkpiece					:= 0;		// mass in kg
-		4:
-			sActiveProgram := 'MaschinenTestlauf';	
-			fTankTemperatureSetPoint		:= 60; 			//Bereich: 30...75°C
-			fAirHeatingTemperatureSetPoint	:= 110; 		//Bereich: 50...110°C
-			tDurationSprayCleaning			:= T#5S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
-			tDurationDripping				:= T#5S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
-			tDurationSuction				:= T#5S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
-			tDurationBlowing				:= T#5S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
-			tDurationConvectionDrying		:= T#5S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette	
-			fTankHeaterHysteresisWidth		:= 5;			// Definiert Range der Tankheizung
-			fTemperatureLimitLowerWorking 	:= 55;
-			fTemperatureLimitUpperWorking 	:= 70;
-			bProgramWithBasketRotation		:= TRUE;		// Korbrotation	
-			sTypeWorkpiece					:= 'none';
-			fMassWorkpiece					:= 0;		// mass in kg	
-		5:
-			sActiveProgram := 'CPSL_Testlauf';	
-			fTankTemperatureSetPoint		:= 60; 			//Bereich: 30...75°C
-			fAirHeatingTemperatureSetPoint	:= 110; 		//Bereich: 50...110°C
-			tDurationSprayCleaning			:= T#45S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
-			tDurationDripping				:= T#5S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
-			tDurationSuction				:= T#5S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
-			tDurationBlowing				:= T#5S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
-			tDurationConvectionDrying		:= T#30S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette	
-			fTankHeaterHysteresisWidth		:= 5;			// Definiert Range der Tankheizung
-			fTemperatureLimitLowerWorking 	:= 55;
-			fTemperatureLimitUpperWorking 	:= 70;
-			bProgramWithBasketRotation		:= FALSE;		// Korbrotation	
-			sTypeWorkpiece					:= 'Control plate';
-			fMassWorkpiece					:= 0.262;		// mass in kg
-	END_CASE
-END_IF</xhtml>
+CASE nSelectProgram OF
+	0:
+		sActiveProgram := 'manual';	
+		fTankTemperatureSetPoint		:= setKEAProgramManual.fTankTemperatureSetPointManual; 			//Bereich: 30...75°C
+		fAirHeatingTemperatureSetPoint	:= setKEAProgramManual.fAirHeatingTemperatureSetPointManual; 	//Bereich: 50...110°C
+		tDurationSprayCleaning			:= DINT_TO_TIME(1000*INT_TO_DINT(setKEAProgramManual.nDurationSprayCleaningManual));	//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationDripping				:= DINT_TO_TIME(1000*INT_TO_DINT(setKEAProgramManual.nDurationDrippingManual));			//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationSuction				:= DINT_TO_TIME(1000*INT_TO_DINT(setKEAProgramManual.nDurationSuctionManual));			//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationBlowing				:= DINT_TO_TIME(1000*INT_TO_DINT(setKEAProgramManual.nDurationBlowingManual));			//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationConvectionDrying		:= DINT_TO_TIME(1000*INT_TO_DINT(setKEAProgramManual.nDurationConvectionDryingManual));	//Bereich: 0...300 Sekunden - Zeit für Schrittkette	
+		fTankHeaterHysteresisWidth		:= setKEAProgramManual.fTankHeaterHysteresisWidthManual;		// Definiert Range der Tankheizung
+		fTemperatureLimitLowerWorking 	:= setKEAProgramManual.fTemperatureLimitLowerWorking;
+		fTemperatureLimitUpperWorking 	:= setKEAProgramManual.fTemperatureLimitUpperWorking;
+		bProgramWithBasketRotation		:= setKEAProgramManual.bProgramWithBasketRotation;		// Keine Korbrotation
+		sTypeWorkpiece					:= setKEAProgramManual.sTypeWorkpiece;
+		fMassWorkpiece					:= setKEAProgramManual.fMassWorkpiece;		// mass in kg	
+	1:
+		sActiveProgram := 'ArePron';
+		fTankTemperatureSetPoint		:= 60; 			//Bereich: 30...75°C
+		fAirHeatingTemperatureSetPoint	:= 110; 		//Bereich: 50...110°C
+		tDurationSprayCleaning			:= T#600S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationDripping				:= T#10S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationSuction				:= T#10S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationBlowing				:= T#10S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationConvectionDrying		:= T#90S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette	
+		fTankHeaterHysteresisWidth		:= 2;			// Definiert Range der Tankheizung
+		fTemperatureLimitLowerWorking 	:= 55;
+		fTemperatureLimitUpperWorking 	:= 65;
+		bProgramWithBasketRotation		:= FALSE;		// Keine Korbrotation
+		sTypeWorkpiece					:= 'Control plate';
+		fMassWorkpiece					:= 0.262;		// mass in kg
+	2:
+		sActiveProgram := 'Schaumparty';
+		fTankTemperatureSetPoint		:= 55; 			//Bereich: 30...75°C
+		fAirHeatingTemperatureSetPoint	:= 110; 		//Bereich: 50...110°C
+		tDurationSprayCleaning			:= T#240S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationDripping				:= T#10S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationSuction				:= T#10S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationBlowing				:= T#10S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationConvectionDrying		:= T#60S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette	
+		fTankHeaterHysteresisWidth		:= 4;			// Definiert Range der Tankheizung	
+		fTemperatureLimitLowerWorking 	:= 50;
+		fTemperatureLimitUpperWorking 	:= 65;
+		bProgramWithBasketRotation		:= FALSE;		// Keine Korbrotation
+		sTypeWorkpiece					:= 'Control plate';
+		fMassWorkpiece					:= 0.262;		// mass in kg
+	3:
+		sActiveProgram := 'Phi-Abschlussdemo';	
+		fTankTemperatureSetPoint		:= 60; 			//Bereich: 30...75°C
+		fAirHeatingTemperatureSetPoint	:= 110; 		//Bereich: 50...110°C
+		tDurationSprayCleaning			:= T#30S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationDripping				:= T#10S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationSuction				:= T#10S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationBlowing				:= T#11S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationConvectionDrying		:= T#41S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette	
+		fTankHeaterHysteresisWidth		:= 5;			// Definiert Range der Tankheizung
+		fTemperatureLimitLowerWorking 	:= 55;
+		fTemperatureLimitUpperWorking 	:= 65;
+		bProgramWithBasketRotation		:= FALSE;		// Keine Korbrotation	
+		sTypeWorkpiece					:= 'none';
+		fMassWorkpiece					:= 0;		// mass in kg
+	4:
+		sActiveProgram := 'MaschinenTestlauf';	
+		fTankTemperatureSetPoint		:= 60; 			//Bereich: 30...75°C
+		fAirHeatingTemperatureSetPoint	:= 110; 		//Bereich: 50...110°C
+		tDurationSprayCleaning			:= T#5S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationDripping				:= T#5S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationSuction				:= T#5S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationBlowing				:= T#5S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationConvectionDrying		:= T#5S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette	
+		fTankHeaterHysteresisWidth		:= 5;			// Definiert Range der Tankheizung
+		fTemperatureLimitLowerWorking 	:= 55;
+		fTemperatureLimitUpperWorking 	:= 70;
+		bProgramWithBasketRotation		:= TRUE;		// Korbrotation	
+		sTypeWorkpiece					:= 'none';
+		fMassWorkpiece					:= 0;		// mass in kg	
+	5:
+		sActiveProgram := 'CPSL_Testlauf';	
+		fTankTemperatureSetPoint		:= 60; 			//Bereich: 30...75°C
+		fAirHeatingTemperatureSetPoint	:= 110; 		//Bereich: 50...110°C
+		tDurationSprayCleaning			:= T#45S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationDripping				:= T#5S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationSuction				:= T#5S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationBlowing				:= T#5S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationConvectionDrying		:= T#30S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette	
+		fTankHeaterHysteresisWidth		:= 5;			// Definiert Range der Tankheizung
+		fTemperatureLimitLowerWorking 	:= 55;
+		fTemperatureLimitUpperWorking 	:= 70;
+		bProgramWithBasketRotation		:= FALSE;		// Korbrotation	
+		sTypeWorkpiece					:= 'Control plate';
+		fMassWorkpiece					:= 0.262;		// mass in kg
+	6:
+		sActiveProgram := 'Phi720ohneKorb';	
+		fTankTemperatureSetPoint		:= 60; 			//Bereich: 30...75°C
+		fAirHeatingTemperatureSetPoint	:= 110; 		//Bereich: 50...110°C
+		tDurationSprayCleaning			:= T#450S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationDripping				:= T#25S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationSuction				:= T#25S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationBlowing				:= T#70S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette
+		tDurationConvectionDrying		:= T#90S;		//Bereich: 0...300 Sekunden - Zeit für Schrittkette	
+		fTankHeaterHysteresisWidth		:= 4;			// Definiert Range der Tankheizung
+		fTemperatureLimitLowerWorking 	:= 55;
+		fTemperatureLimitUpperWorking 	:= 70;
+		bProgramWithBasketRotation		:= FALSE;		// Korbrotation	
+		sTypeWorkpiece					:= 'Control plate';
+		fMassWorkpiece					:= 0.262;		// mass in kg
+END_CASE</xhtml>
                 </ST>
               </body>
               <addData />
@@ -3353,15 +3374,16 @@ programState.sActiveProgram					:= sActiveProgram;
 programState.fTankTemperatureSetPoint		:= fTankTemperatureSetPoint;
 programState.fTankHeaterHysteresisWidth 	:= fTankHeaterHysteresisWidth;
 programState.fAirHeatingTemperatureSetPoint	:= fAirHeatingTemperatureSetPoint;
-programState.tDurationSprayCleaning			:= tDurationSprayCleaning;
-programState.tDurationDripping				:= tDurationDripping;
-programState.tDurationSuction				:= tDurationSuction;
-programState.tDurationBlowing				:= tDurationBlowing;
-programState.tDurationConvectionDrying 		:= tDurationConvectionDrying;
+programState.nDurationSprayCleaning			:= DINT_TO_INT(TIME_TO_DINT(tDurationSprayCleaning) / 1000);
+programState.nDurationDripping				:= DINT_TO_INT(TIME_TO_DINT(tDurationDripping) / 1000);
+programState.nDurationSuction				:= DINT_TO_INT(TIME_TO_DINT(tDurationSuction) / 1000);
+programState.nDurationBlowing				:= DINT_TO_INT(TIME_TO_DINT(tDurationBlowing) / 1000);
+programState.nDurationConvectionDrying 		:= DINT_TO_INT(TIME_TO_DINT(tDurationConvectionDrying) / 1000);
 programState.bProgramWithBasketRotation 	:= bProgramWithBasketRotation;
 programState.fMassWorkpiece					:= fMassWorkpiece;
 programState.sMassWorkpieceUnit				:= 'kg';
 programState.sTypeWorkpiece					:= sTypeWorkpiece;
+programState.sDurationUnit					:= 's';
 
 // set local state
 // sKEAOperatingState and nKEAOperatingState are set in SystemFlowControl
