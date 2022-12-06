@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="" productName="IndraLogic" productVersion="indralogic" creationDateTime="2022-11-29T10:56:21.6017937" />
-  <contentHeader name="IndraLogic.project" modificationDateTime="2022-11-28T17:01:58">
+  <fileHeader companyName="" productName="IndraLogic" productVersion="indralogic" creationDateTime="2022-12-06T10:10:06.7971978" />
+  <contentHeader name="IndraLogic.project" modificationDateTime="2022-12-06T10:04:48">
     <coordinateInfo>
       <fbd>
         <scaling x="1" y="1" />
@@ -3840,7 +3840,7 @@ SetPointCheck();</xhtml>
                 <REAL />
               </type>
               <initialValue>
-                <simpleValue value="20" />
+                <simpleValue value="8" />
               </initialValue>
             </variable>
             <variable name="fTemperatureLimitUpperCritical">
@@ -3967,7 +3967,7 @@ T4(IN := fTankTemperature &lt; fTemperatureLimitLowerCritical, PT := T#1S);
 S4(SET1 := T4.Q, RESET := bResetErrors, Q1 =&gt; errorState.bErrorTankTemperatureCriticalLow);
 
 T5(IN := fTankTemperature &gt; fTemperatureLimitUpperCritical, PT := T#1S);
-S5(SET1 := T4.Q, RESET := bResetErrors, Q1 =&gt; errorState.bErrorTankTemperatureCriticalHigh);
+S5(SET1 := T5.Q, RESET := bResetErrors, Q1 =&gt; errorState.bErrorTankTemperatureCriticalHigh);
 
 bError := (
 	errorState.bErrorTankLevelLow OR
