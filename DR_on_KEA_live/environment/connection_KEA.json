@@ -109,6 +109,12 @@
                     "opc_id": "ns=2;s=Application.Plc_Main.KEA.tank.localState.fTankVolume",
                     "dtype": "float"
                 },
+		{
+                    "name": "fRealPower",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.localState.fRealPower",
+                    "dtype": "float"
+                },
                 {
                     "name": "fCleaningFluidDensity",
                     "server": "KEA",
@@ -151,6 +157,18 @@
                     "opc_id": "ns=2;s=Application.Plc_Main.KEA.tank.tankHeater.control.bAlgorithmModeActivated",
                     "dtype": "bool"
                 },
+		{
+                    "name": "bAlgorithmModeActivated",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.control.bAlgorithmModeActivated",
+                    "dtype": "bool"
+                },
+		{
+                    "name": "bSetStatusOnAlgorithm",
+                    "server": "KEA",
+                    "opc_id": "ns=2;s=Application.Plc_Main.KEA.control.bSetStatusOnAlgorithm",
+                    "dtype": "bool"
+                },
                 {
                     "name": "bSetSelectedProgram",
                     "server": "KEA",
@@ -188,6 +206,7 @@
                 "fTemperatureLimitUpperWorking",
                 "fCleaningFluidSpecificHeatCapacity",
                 "fTankVolume",
+		"fRealPower",
                 "fCleaningFluidDensity",
                 "fMassWorkpiece",
                 "nWorkpieces",
@@ -201,12 +220,16 @@
                     "bTankHeaterAlgorithmModeActivated": true,
                     "bSetSelectedProgram": true,
                     "nSelectProgram": 1, // set Arepron program  5: Testprogramm
-                    "nSetNumberOfWorkpieces": 42 // set to 42 workpieces
+                    "nSetNumberOfWorkpieces": 42, // set to 42 workpieces
+		    "bAlgorithmModeActivated": true,
+		    "bSetStatusOnAlgorithm": true
                 },
                 "close": {
                     "bTankHeaterAlgorithmModeActivated": false,
                     "bInterruptProcess": false,
-                    "bSetSelectedProgram": false
+                    "bSetSelectedProgram": false,
+		    "bAlgorithmModeActivated": false,
+		    "bSetStatusOnAlgorithm": false
                 }
             }
         }

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="" productName="IndraLogic" productVersion="indralogic" creationDateTime="2022-12-06T14:30:48.2605206" />
-  <contentHeader name="IndraLogic.project" modificationDateTime="2022-12-06T14:21:14">
+  <fileHeader companyName="" productName="IndraLogic" productVersion="indralogic" creationDateTime="2023-05-04T16:21:11.22622" />
+  <contentHeader name="IndraLogic.project" modificationDateTime="2023-04-06T09:56:36">
     <coordinateInfo>
       <fbd>
         <scaling x="1" y="1" />
@@ -2506,6 +2506,10 @@ END_IF</xhtml>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">MAIN();
 ReadInputs();
 SelectProgram();
+SelectInterruptionMode();
+
+// Algorithm has permission if KEA is not in error state
+bAlgorithmPermission := NOT bGlobalError;
 
 // instantiate submodels
 tank(
@@ -2744,7 +2748,7 @@ CleaningChamber.bPumpSupplyOn						:= FALSE;
 CleaningChamber.bRotationBasketEnable 				:= bProgramWithBasketRotation;
 CleaningChamber.bRotationBasketDirectionOfRotation 	:= FALSE;
 CleaningChamber.bRotationNoozleFrameEnable 			:= FALSE;
-CleaningChamber.bExhaustAirFanOn 					:= FALSE;
+CleaningChamber.bExhaustAirFanOn 					:= TRUE;
 CleaningChamber.bBlastNoozleBottomOn				:= bBlastNoozleBottomOn;
 CleaningChamber.bBlastNoozleTopOn					:= bBlastNoozleTopOn;
 
@@ -2772,7 +2776,7 @@ CleaningChamber.bPumpSupplyOn						:= FALSE;
 CleaningChamber.bRotationBasketEnable 				:= bProgramWithBasketRotation;
 CleaningChamber.bRotationBasketDirectionOfRotation 	:= FALSE;
 CleaningChamber.bRotationNoozleFrameEnable 			:= FALSE;
-CleaningChamber.bExhaustAirFanOn 					:= FALSE;
+CleaningChamber.bExhaustAirFanOn 					:= TRUE;
 CleaningChamber.bBlastNoozleTopOn					:= FALSE;
 CleaningChamber.bBlastNoozleBottomOn				:= FALSE;
 
@@ -2905,11 +2909,6 @@ CleaningChamber.bBlastNoozleBottomOn				:= FALSE;
                 <returnType>
                   <INT />
                 </returnType>
-                <addData>
-                  <data name="http://www.3s-software.com/plcopenxml/accessmodifiers" handleUnknown="implementation">
-                    <AccessModifiers Protected="true" />
-                  </data>
-                </addData>
               </interface>
               <body>
                 <ST>
@@ -3180,6 +3179,13 @@ inletAirHeating.bSetStatusOnAutomatic := FALSE;
 
 // turn on tank heating
 tank.bSetStatusOnAutomatic := TRUE;
+
+// open door if wanted
+CleaningChamber.OpenDoor(
+	bOpenDoor := bOpenDoor, 
+	bInletAirHeaterOnStatus := inletAirHeating.bInletAirHeaterOn, 
+	nActiveState := systemState.nOperatingState
+);
 
 // if tank heating is finished, ramp-up is finished
 IF tank.nTankHeaterState = E_SystemOperatingState.operational THEN
@@ -4564,11 +4570,6 @@ SystemFlowControl();</xhtml>
                 <returnType>
                   <INT />
                 </returnType>
-                <addData>
-                  <data name="http://www.3s-software.com/plcopenxml/accessmodifiers" handleUnknown="implementation">
-                    <AccessModifiers Protected="true" />
-                  </data>
-                </addData>
               </interface>
               <body>
                 <ST>
@@ -6241,11 +6242,6 @@ SystemFlowControl();</xhtml>
                 <returnType>
                   <INT />
                 </returnType>
-                <addData>
-                  <data name="http://www.3s-software.com/plcopenxml/accessmodifiers" handleUnknown="implementation">
-                    <AccessModifiers Protected="true" />
-                  </data>
-                </addData>
               </interface>
               <body>
                 <ST>
@@ -6744,6 +6740,14 @@ systemState.nOperatingState := nState;</xhtml>
             </interface>
             <addData />
           </Method>
+          <Method name="SystemFlowControl" ObjectId="cfaf74e7-d92c-4eb2-b29f-b84a4cb453c9">
+            <interface>
+              <returnType>
+                <INT />
+              </returnType>
+            </interface>
+            <addData />
+          </Method>
         </Methods>
         <addData />
       </Interface>
@@ -6847,6 +6851,7 @@ systemState.nOperatingState := nState;</xhtml>
               <Object Name="Working" ObjectId="2b54d2e7-ccd5-4b69-b2f9-b2f9fe47149a" />
               <Object Name="RampUp" ObjectId="fd59819b-43c5-48cc-98af-bb739bafe907" />
               <Object Name="Standby" ObjectId="139c71f4-133c-4956-b9b6-c15d8c730076" />
+              <Object Name="SystemFlowControl" ObjectId="cfaf74e7-d92c-4eb2-b29f-b84a4cb453c9" />
             </Object>
             <Object Name="FB_System2Point" ObjectId="c0351a81-0a1b-4a59-9278-4d72daf11bc8">
               <Object Name="RampDown" ObjectId="20bc3486-a275-474c-9da9-e5dde4878b93" />
