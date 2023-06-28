@@ -1,7 +1,5 @@
 # Modelling and control of aqueous parts cleaning machines for demand response
 
-Insert a short project description here
-
 ## Abstract
 
 With the aim of enabling better utilization of renewable power and reducing the environmental impact of industrial sites, we propose an approach for implementing electric demand response. Cleaning machines provide significant potential for demand response due to their large water tanks, which can be used for thermal energy storage. Furthermore, many batch cleaning machines allow process interruptions without impacting the cleaning result. We show that utilizing inherent energy storage and process interruptions are practical ways to implement demand response.
@@ -17,4 +15,4 @@ carbon neutral production; energy-flexibility; cyber-physical production system;
 
 ## Cite
 
-Fuhrländer-Völker, Daniel; Grosch, Benedikt; Weigold, Matthias. 2023. Modelling And Control Of Aqueous Parts Cleaning Machines For Demand Response. (Paper in review)
+Fuhrländer-Völker, Daniel; Grosch, Benedikt; Weigold, Matthias. 'Modelling And Control Of Aqueous Parts Cleaning Machines For Demand Response'. In: Proceedings of the Conference on Production Systems and Logistics: CPSL 2023 (2023), SS. 790–800. DOI: https://doi.org/10.15488/13498
